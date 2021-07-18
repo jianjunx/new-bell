@@ -12,6 +12,7 @@ import (
 	"new-bell/dao/mysql"
 	"new-bell/dao/redis"
 	"new-bell/logger"
+	snowflake "new-bell/pkg/snowflak"
 	"new-bell/routers"
 	"new-bell/settings"
 
@@ -53,6 +54,9 @@ func main() {
 
 	// 注册路由
 	r := routers.Setup()
+
+	// 初始化雪花id
+	snowflake.Init("2021-07-01", 1)
 
 	// 启动服务（优雅关机）
 	srv := &http.Server{
