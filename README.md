@@ -37,3 +37,10 @@ log:
 $ go mod tidy
 $ go run main.go
 ```
+
+热重载启动：
+安装[air](https://github.com/cosmtrek/air)命令
+```bash
+$ cd /path/to/your_project
+$ air -d
+```
