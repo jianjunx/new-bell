@@ -22,3 +22,8 @@ func GetUserNameRowCount(username string, c *[]models.UserCount) (err error) {
 	err = db.Select(c, "SELECT COUNT(user_name) as user_count FROM user WHERE user_name=?", username)
 	return
 }
+
+func GetUserInfoByUid(uid string, u *[]models.UserModal) error {
+	err := db.Select(u, "SELECT uid,user_name,email,create_at,update_at FROM user WHERE uid=?", uid)
+	return err
+}

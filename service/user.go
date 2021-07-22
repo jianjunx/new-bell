@@ -24,3 +24,9 @@ func Signup(p *models.SignupParams) (int64, error) {
 	}
 	return id, nil
 }
+
+func GetUserInfo(uid string) (*[]models.UserModal, error) {
+	var users []models.UserModal
+	err := mysql.GetUserInfoByUid(uid, &users)
+	return &users, err
+}

@@ -27,6 +27,13 @@ func SignupHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": id})
 }
 
-func GetUserInfoHandler() {
-	
+func GetUserInfoHandler(c *gin.Context) {
+	uid := c.Query("uid")
+	users, err := service.GetUserInfo(uid)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		zap.L().Error("Error", zap.Error(err))
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": *users})
 }
