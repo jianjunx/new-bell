@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"net/http"
 	"new-bell/models"
 	"new-bell/service"
 
@@ -21,7 +20,7 @@ func SignupHandler(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": id})
+	service.SuccessData(c, id)
 }
 
 func LoginHandler(c *gin.Context) {
@@ -36,7 +35,7 @@ func LoginHandler(c *gin.Context) {
 		service.ErrorHandler(c, err)
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"data": *user})
+	service.SuccessData(c, user)
 }
 
 func GetUserInfoHandler(c *gin.Context) {
@@ -46,5 +45,5 @@ func GetUserInfoHandler(c *gin.Context) {
 		service.ErrorHandler(c, err)
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"data": *user})
+	service.SuccessData(c, user)
 }

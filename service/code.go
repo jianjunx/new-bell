@@ -3,6 +3,7 @@ package service
 import (
 	"fmt"
 	"net/http"
+	"new-bell/models"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
@@ -39,14 +40,20 @@ func ErrorHandler(c *gin.Context, err error) {
 	zap.L().Error(text, zap.Error(fmt.Errorf(errCode)))
 }
 
-func SuccessList(c *gin.Context, list []interface{}, total int) {
-	
+func SuccessList(c *gin.Context, p *models.PageListParams, list []interface{}, total int) {
 	c.JSON(http.StatusOK, gin.H{
 		"code":      200,
 		"msg":       "ok",
 		"list":      list,
 		"total":     total,
-		"pageSize":  10,
-		"pageIndex": 1,
+		"pageSize":  p.PageSize,
+		"pageIndex": p.PageIndex,
+	})
+}
+func SuccessData(c *gin.Context, data interface{}) {
+	c.JSON(http.StatusOK, gin.H{
+		"code": 200,
+		"msg":  "ok",
+		"data": data,
 	})
 }
