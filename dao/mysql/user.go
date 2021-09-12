@@ -23,7 +23,7 @@ func GetUserNameRowCount(username string, c *[]models.UserCount) (err error) {
 	return
 }
 
-func GetUserInfoByUid(uid string, u *[]models.UserModal) error {
-	err := db.Select(u, "SELECT uid,user_name,email,create_at,update_at FROM user WHERE uid=?", uid)
+func GetUserInfo(key, val string, u *[]models.UserModal) error {
+	err := db.Select(u, "SELECT uid,user_name,email,create_at,update_at,passwd FROM user WHERE "+key+"=?", val)
 	return err
 }

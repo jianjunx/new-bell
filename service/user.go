@@ -25,8 +25,30 @@ func Signup(p *models.SignupParams) (int64, error) {
 	return id, nil
 }
 
-func GetUserInfo(uid string) (*[]models.UserModal, error) {
+func Login(username, passwd string) (*models.UserModal, error) {
 	var users []models.UserModal
-	err := mysql.GetUserInfoByUid(uid, &users)
-	return &users, err
+	err := mysql.GetUserInfo("user_name", username, &users)
+	if err != nil {
+		return nil, err
+	}
+	if len(users) == 0 {
+		return nil, errors.New(CodeUserEmpty)
+	}
+	user := &users[0]
+	if user.Passwd != passwd {
+		return nil, errors.New(CodePasswdFault)
+	}
+	return user, nil
+}
+
+func GetUserInfo(uid string) (*models.UserModal, error) {
+	var users []models.UserModal
+	err := mysql.GetUserInfo("uid", uid, &users)
+	if err != nil {
+		return nil, err
+	}
+	if len(users) == 0 {
+		return nil, errors.New(CodeUserEmpty)
+	}
+	return &users[0], err
 }

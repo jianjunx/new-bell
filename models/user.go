@@ -3,6 +3,7 @@ package models
 type UserModal struct {
 	Uid      int    `db:"uid" json:"uid"`
 	UserName string `db:"user_name" json:"userName"`
+	Passwd   string `db:"passwd" json:"-"`
 	Email    string `db:"email" json:"email"`
 	Gender   string `db:"gender" json:"gender"`
 	CreateAt string `db:"create_at" json:"createAt"`
