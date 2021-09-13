@@ -8,10 +8,11 @@ import (
 )
 
 type App struct {
-	Name    string `mapstructure:"name"`
-	Env     string `mapstructure:"env"`
-	Port    int    `mapstructure:"port"`
-	Version string `mapstructure:"version"`
+	Name      string `mapstructure:"name"`
+	Env       string `mapstructure:"env"`
+	Port      int    `mapstructure:"port"`
+	Version   string `mapstructure:"version"`
+	WhiteList string `mapstructure:"white_list"`
 }
 type Mysql struct {
 	Host         string `mapstructure:"host"`

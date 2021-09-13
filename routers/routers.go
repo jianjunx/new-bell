@@ -12,7 +12,7 @@ import (
 func Setup() *gin.Engine {
 	r := gin.New()
 	// 注册中间件
-	r.Use(logger.GinLogger(), logger.GinRecovery(true), middleware.ErrorHandler())
+	r.Use(logger.GinLogger(), logger.GinRecovery(true), middleware.Identity())
 	// 注册路由
 	r.GET("/", func(c *gin.Context) {
 		c.String(http.StatusOK, "hello")

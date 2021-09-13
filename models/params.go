@@ -13,3 +13,8 @@ type PageListParams struct {
 	Asc       []string    `form:"asc"`
 	Desc      []string    `form:"desc"`
 }
+
+type LoginResponse struct {
+	Token     string `json:"token"`
+	UserModal `json:"userInfo"`
+}

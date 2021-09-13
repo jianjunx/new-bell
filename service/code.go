@@ -15,6 +15,7 @@ const (
 	CodeUserNameFault = "3002"
 	CodeUserEmpty     = "3003"
 	CodeTokenInvalid  = "3004"
+	CodeNoPermission  = "3005"
 )
 
 var faultTextMap = map[string]string{
@@ -23,6 +24,7 @@ var faultTextMap = map[string]string{
 	CodeUserNameFault: "用户名错误",
 	CodeUserEmpty:     "用户信息为空",
 	CodeTokenInvalid:  "Token失效",
+	CodeNoPermission:  "权限不足",
 }
 
 func ErrorHandler(c *gin.Context, err error) {
@@ -38,6 +40,7 @@ func ErrorHandler(c *gin.Context, err error) {
 		"msg":  text,
 	})
 	zap.L().Error(text, zap.Error(fmt.Errorf(errCode)))
+	c.Abort()
 }
 
 func SuccessList(c *gin.Context, p *models.PageListParams, list []interface{}, total int) {

@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"new-bell/models"
+	"new-bell/pkg/jwt"
 	"new-bell/service"
 
 	"github.com/gin-gonic/gin"
@@ -35,7 +36,12 @@ func LoginHandler(c *gin.Context) {
 		service.ErrorHandler(c, err)
 		return
 	}
-	service.SuccessData(c, user)
+	token, err := jwt.Award(user, c.ClientIP())
+	if err != nil {
+		service.ErrorHandler(c, err)
+		return
+	}
+	service.SuccessData(c, &models.LoginResponse{Token: token, UserModal: *user})
 }
 
 func GetUserInfoHandler(c *gin.Context) {
