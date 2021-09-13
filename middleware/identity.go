@@ -17,6 +17,7 @@ func Identity() gin.HandlerFunc {
 			c.Next()
 			return
 		}
+		// 取Header中的Token
 		auth := c.GetHeader("Authorization")
 		if auth == "" {
 			service.ErrorHandler(c, errors.New(service.CodeNoPermission))
@@ -27,6 +28,7 @@ func Identity() gin.HandlerFunc {
 			service.ErrorHandler(c, errors.New(service.CodeNoPermission))
 			return
 		}
+		// 设置到上下文中
 		c.Set("uid", claims.Uid)
 		c.Set("userName", claims.UserName)
 	}

@@ -8,6 +8,7 @@ import (
 
 var node *sf.Node
 
+// 雪花算法 生成ID
 func Init(startTime string, nodeId int64) (err error) {
 	var t time.Time
 	t, err = time.Parse("2006-01-02", startTime)
@@ -22,6 +23,7 @@ func Init(startTime string, nodeId int64) (err error) {
 	return
 }
 
+// 生成通用ID
 func GenerateId() int64 {
 	return node.Generate().Int64()
 }
