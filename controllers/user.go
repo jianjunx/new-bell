@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"new-bell/models"
 	"new-bell/pkg/jwt"
 	"new-bell/service"
@@ -43,7 +44,14 @@ func LoginHandler(c *gin.Context) {
 	}
 	service.SuccessData(c, &models.LoginResponse{Token: token, UserModal: *user})
 }
-
+func GetUserDetail(c *gin.Context) {
+	uid, _ := c.Get("uid")
+	user, err := service.GetUserInfo(fmt.Sprint(uid))
+	if err != nil {
+		service.ErrorHandler(c, err)
+	}
+	service.SuccessData(c, user)
+}
 func GetUserInfoHandler(c *gin.Context) {
 	uid := c.Param("id")
 	user, err := service.GetUserInfo(uid)

@@ -22,8 +22,10 @@ func Setup() *gin.Engine {
 	r.POST("/signup", controllers.SignupHandler)
 	// 用户登录
 	r.POST("/login", controllers.LoginHandler)
-	// 用户信息
+	// 通过uid获取用户信息
 	r.GET("/user/:id", controllers.GetUserInfoHandler)
+	// 通过token获取用户信息
+	r.GET("/user/info", controllers.GetUserDetail)
 
 	return r
 }

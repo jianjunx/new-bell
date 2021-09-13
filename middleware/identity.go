@@ -2,7 +2,6 @@ package middleware
 
 import (
 	"errors"
-	"fmt"
 	"new-bell/pkg/jwt"
 	"new-bell/service"
 	"new-bell/settings"
@@ -19,7 +18,6 @@ func Identity() gin.HandlerFunc {
 			return
 		}
 		auth := c.GetHeader("Authorization")
-		fmt.Println("auth", auth)
 		if auth == "" {
 			service.ErrorHandler(c, errors.New(service.CodeNoPermission))
 			return
@@ -29,6 +27,7 @@ func Identity() gin.HandlerFunc {
 			service.ErrorHandler(c, errors.New(service.CodeNoPermission))
 			return
 		}
-		c.Set("auth", claims)
+		c.Set("uid", claims.Uid)
+		c.Set("userName", claims.UserName)
 	}
 }
