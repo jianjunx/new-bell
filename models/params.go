@@ -18,3 +18,7 @@ type LoginResponse struct {
 	Token     string `json:"token"`
 	UserModal `json:"userInfo"`
 }
+
+type Total struct {
+	Count int `json:"count"`
+}

@@ -5,11 +5,11 @@ import (
 	"new-bell/models"
 )
 
-func GetCategoryList(p *models.PageListParams) (*[]models.Category ,error) {
+func GetCategoryList(p *models.PageListParams) (*[]models.Category, int, error) {
 	clist := []models.Category{}
-	err:= mysql.GetCategoryList(p, &clist)
-	if err!=nil {
-		return nil, err
+	total, err := mysql.GetCategoryList(p, &clist)
+	if err != nil {
+		return nil, 0, err
 	}
-	return &clist, nil
+	return &clist, total, nil
 }

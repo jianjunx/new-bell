@@ -28,6 +28,6 @@ func Setup() *gin.Engine {
 	r.GET("/user/info", controllers.GetUserDetail)
 
 	// 获取分类列表
-	r.GET("/category", controllers.GetCategoryHandler)
+	r.POST("/category", controllers.GetCategoryHandler)
 	return r
 }

@@ -43,7 +43,7 @@ func ErrorHandler(c *gin.Context, err error) {
 	c.Abort()
 }
 
-func SuccessList(c *gin.Context, p *models.PageListParams, list []interface{}, total int) {
+func SuccessList(c *gin.Context, p *models.PageListParams, list interface{}, total int) {
 	c.JSON(http.StatusOK, gin.H{
 		"code":      200,
 		"msg":       "ok",

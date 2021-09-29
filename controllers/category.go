@@ -1,26 +1,26 @@
 package controllers
 
 import (
-	"fmt"
-	"github.com/gin-gonic/gin"
 	"new-bell/models"
 	"new-bell/service"
+
+	"github.com/gin-gonic/gin"
 )
 
-func GetCategoryHandler(c *gin.Context)  {
-	p:= models.PageListParams{
-		PageSize: 10,
+func GetCategoryHandler(c *gin.Context) {
+	p := models.PageListParams{
+		PageSize:  10,
 		PageIndex: 1,
 	}
-	err := c.BindJSON(p)
+	err := c.BindJSON(&p)
 	if err != nil {
+		service.ErrorHandler(c, err)
 		return
 	}
-	list, err:= service.GetCategoryList(&p)
-	if err!=nil {
+	list, total, cerr := service.GetCategoryList(&p)
+	if cerr != nil {
+		service.ErrorHandler(c, cerr)
 		return
 	}
-	fmt.Print(list)
-	//service.SuccessList(c, p, list,10)
-
+	service.SuccessList(c, &p, &list, total)
 }
