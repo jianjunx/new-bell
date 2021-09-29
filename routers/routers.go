@@ -27,5 +27,7 @@ func Setup() *gin.Engine {
 	// 通过token获取用户信息
 	r.GET("/user/info", controllers.GetUserDetail)
 
+	// 获取分类列表
+	r.GET("/category", controllers.GetCategoryHandler)
 	return r
 }
