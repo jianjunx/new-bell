@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"errors"
 	"new-bell/models"
 	"new-bell/service"
 
@@ -20,4 +21,18 @@ func GetPostsHandler(c *gin.Context) {
 		return
 	}
 	service.SuccessList(c, &p, posts, total)
+}
+
+func GetPostsDetailHandler(c *gin.Context) {
+	id := c.Param("id")
+	if id == "" {
+		service.ErrorHandler(c, errors.New("ID不能为空"))
+		return
+	}
+	post, err := service.GetPostsDetail(id)
+	if err != nil {
+		service.ErrorHandler(c, err)
+		return
+	}
+	service.SuccessData(c, post)
 }

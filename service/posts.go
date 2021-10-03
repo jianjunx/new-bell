@@ -13,3 +13,15 @@ func GetPostsList(p *models.PageListParams) (*[]models.Posts, int, error) {
 	}
 	return &posts, total, nil
 }
+
+func GetPostsDetail(id string) (*models.Posts, error) {
+	posts := []models.Posts{}
+	err := mysql.GetPostsDetail(id, &posts)
+	if err != nil {
+		return nil, err
+	}
+	if len(posts) == 0 {
+		return nil, nil
+	}
+	return &posts[0], nil
+}
