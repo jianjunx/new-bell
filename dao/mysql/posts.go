@@ -1,7 +1,9 @@
 package mysql
 
 import (
+	"database/sql"
 	"new-bell/models"
+	snowflake "new-bell/pkg/snowflak"
 )
 
 func GetPosts(p *models.PageListParams, posts *[]models.Posts) (int, error) {
@@ -45,4 +47,15 @@ func GetPostsDetail(id string, posts *[]models.Posts) error {
 	LEFT JOIN category as c ON p.cid=c.cid
 	WHERE p.pid=?`
 	return db.Select(posts, sql, id)
+}
+
+func AddPost(param *models.AddPostParam, authId interface{}) (sql.Result, error) {
+	pid := snowflake.GenerateId()
+	sql := "INSERT INTO posts (pid,title,content,cid,auth_id) VALUES (?,?,?,?,?)"
+	return db.Exec(sql, pid, param.Title, param.Content, param.Cid, authId)
+}
+
+func DeletePost(id interface{}) (sql.Result, error) {
+	sql := "DELETE FROM posts WHERE pid=?"
+	return db.Exec(sql, id)
 }

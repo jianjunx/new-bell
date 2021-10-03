@@ -38,10 +38,13 @@ func Award(user *models.UserModal, issuer string) (string, error) {
 }
 
 // 解析token
-func ParseToken(tokenStr string) (gojwt.Token, *Claims, error) {
+func ParseToken(tokenStr string) (*gojwt.Token, *Claims, error) {
 	claims := &Claims{}
 	token, err := gojwt.ParseWithClaims(tokenStr, claims, func(t *gojwt.Token) (interface{}, error) {
 		return jwtKey, nil
 	})
-	return *token, claims, err
+	if err != nil {
+		return nil, nil, err
+	}
+	return token, claims, err
 }

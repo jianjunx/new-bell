@@ -22,3 +22,9 @@ type LoginResponse struct {
 type Total struct {
 	Count int `json:"count"`
 }
+
+type AddPostParam struct {
+	Title   string `form:"title" json:"title" binding:"required"`
+	Content string `form:"content" json:"content" binding:"required"`
+	Cid     int    `form:"cid" json:"cid" binding:"required"`
+}

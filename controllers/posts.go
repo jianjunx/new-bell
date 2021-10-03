@@ -36,3 +36,33 @@ func GetPostsDetailHandler(c *gin.Context) {
 	}
 	service.SuccessData(c, post)
 }
+
+func AddPostHandler(c *gin.Context) {
+	param := models.AddPostParam{}
+	authId, _ := c.Get("uid")
+	err := c.BindJSON(&param)
+	if err != nil {
+		service.ErrorHandler(c, err)
+		return
+	}
+	err = service.AddPost(&param, authId)
+	if err != nil {
+		service.ErrorHandler(c, err)
+		return
+	}
+	service.SuccessData(c, nil)
+}
+
+func DeletePostHandler(c *gin.Context) {
+	id := c.Param("id")
+	if id == "" {
+		service.ErrorHandler(c, errors.New("ID不能为空"))
+		return
+	}
+	err := service.DeletePost(&id)
+	if err != nil {
+		service.ErrorHandler(c, err)
+		return
+	}
+	service.SuccessData(c, nil)
+}

@@ -25,3 +25,13 @@ func GetPostsDetail(id string) (*models.Posts, error) {
 	}
 	return &posts[0], nil
 }
+
+func AddPost(param *models.AddPostParam, authId interface{}) error {
+	_, err := mysql.AddPost(param, authId)
+	return err
+}
+
+func DeletePost(id interface{}) error {
+	_, err := mysql.DeletePost(id)
+	return err
+}

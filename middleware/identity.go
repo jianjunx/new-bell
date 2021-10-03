@@ -4,8 +4,6 @@ import (
 	"errors"
 	"new-bell/pkg/jwt"
 	"new-bell/service"
-	"new-bell/settings"
-	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -13,10 +11,10 @@ import (
 func Identity() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		// 如果在白名单中直接跳过
-		if strings.Contains(settings.Config.WhiteList, c.FullPath()) {
-			c.Next()
-			return
-		}
+		// if strings.Contains(settings.Config.WhiteList, c.FullPath()) {
+		// 	c.Next()
+		// 	return
+		// }
 		// 取Header中的Token
 		auth := c.GetHeader("Authorization")
 		if auth == "" {
