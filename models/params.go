@@ -7,11 +7,11 @@ type SignupParams struct {
 }
 
 type PageListParams struct {
-	PageIndex int         `form:"pageIndex"`
-	PageSize  int         `form:"pageSize"`
-	Condition interface{} `form:"condition"`
-	Asc       []string    `form:"asc"`
-	Desc      []string    `form:"desc"`
+	PageIndex int                    `form:"pageIndex"`
+	PageSize  int                    `form:"pageSize"`
+	Condition map[string]interface{} `form:"condition"`
+	Asc       []string               `form:"asc"`
+	Desc      []string               `form:"desc"`
 }
 
 type LoginResponse struct {

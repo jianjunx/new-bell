@@ -29,5 +29,8 @@ func Setup() *gin.Engine {
 
 	// 获取分类列表
 	r.POST("/category", controllers.GetCategoryHandler)
+
+	// 帖子 文章
+	r.POST("/posts", controllers.GetPostsHandler)
 	return r
 }

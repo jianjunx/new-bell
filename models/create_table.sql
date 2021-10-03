@@ -17,3 +17,16 @@ CREATE TABLE `category`(
     primary key (`cid`),
     unique key idx_cid (`cid`) using btree
 ) ENGINE = INNODB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
+
+CREATE TABLE `posts`(
+  `pid` BIGINT(20) not null,
+  `title` varchar(255) not null,
+  `content` varchar(6000) not null,
+  `cid` int not null,
+  `auth_id` BIGINT(20) not null,
+  `create_at` TIMESTAMP not null DEFAULT CURRENT_TIMESTAMP,
+  `update_at` TIMESTAMP not null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  primary key (pid),
+  unique key idx_pid (`pid`) using btree,
+  unique key idx_cid (`pid`) using btree
+) ENGINE = INNODB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
