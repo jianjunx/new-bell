@@ -9,6 +9,16 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// SignupHandler 注册接口
+// @Summary 注册接口
+// @Description 用户注册
+// @Tags 注册
+// @Accept application/json
+// @Produce application/json
+// @Param Authorization header string false "Bearer 用户令牌"
+// @Param object body models.SignupParams false "参数"
+// @Success 200 {string} 0
+// @Router /signup [post]
 func SignupHandler(c *gin.Context) {
 	var p models.SignupParams
 	err := c.ShouldBindJSON(&p)

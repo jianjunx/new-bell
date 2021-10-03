@@ -1,0 +1,54 @@
+basePath: /
+definitions:
+  models.SignupParams:
+    properties:
+      passwd:
+        type: string
+      repasswd:
+        type: string
+      userName:
+        type: string
+    required:
+    - passwd
+    - userName
+    type: object
+host: localhost
+info:
+  contact:
+    email: jianjun.xie@aliyun.com
+    name: JJ
+    url: http://jianjun.fun
+  description: go web 练习
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: new-bell
+  version: "1.0"
+paths:
+  /signup:
+    post:
+      consumes:
+      - application/json
+      description: 用户注册
+      parameters:
+      - description: Bearer 用户令牌
+        in: header
+        name: Authorization
+        type: string
+      - description: 参数
+        in: body
+        name: object
+        schema:
+          $ref: '#/definitions/models.SignupParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 注册接口
+      tags:
+      - 注册
+swagger: "2.0"

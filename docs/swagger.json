@@ -1,0 +1,81 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "go web 练习",
+        "title": "new-bell",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "JJ",
+            "url": "http://jianjun.fun",
+            "email": "jianjun.xie@aliyun.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost",
+    "basePath": "/",
+    "paths": {
+        "/signup": {
+            "post": {
+                "description": "用户注册",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "注册"
+                ],
+                "summary": "注册接口",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 用户令牌",
+                        "name": "Authorization",
+                        "in": "header"
+                    },
+                    {
+                        "description": "参数",
+                        "name": "object",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/models.SignupParams"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.SignupParams": {
+            "type": "object",
+            "required": [
+                "passwd",
+                "userName"
+            ],
+            "properties": {
+                "passwd": {
+                    "type": "string"
+                },
+                "repasswd": {
+                    "type": "string"
+                },
+                "userName": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

@@ -19,6 +19,20 @@ import (
 	"go.uber.org/zap"
 )
 
+// @title new-bell
+// @version 1.0
+// @description go web 练习
+// @termsOfService http://swagger.io/terms/
+
+// @contact.name JJ
+// @contact.url http://jianjun.fun
+// @contact.email jianjun.xie@aliyun.com
+
+// @license.name Apache 2.0
+// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
+
+// @host localhost
+// @BasePath /
 func main() {
 	// 读取配置
 	err := settings.Init()

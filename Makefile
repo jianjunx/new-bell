@@ -10,6 +10,9 @@ build:
 run:
 	air -d
 
+swag:
+	swag init
+
 gotool:
 	go fmt ./
 	go vet ./
