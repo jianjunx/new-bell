@@ -55,6 +55,11 @@ func AddPost(param *models.AddPostParam, authId interface{}) (sql.Result, error)
 	return db.Exec(sql, pid, param.Title, param.Content, param.Cid, authId)
 }
 
+func UpdatePost(param *models.AddPostParam, id interface{}) (sql.Result, error) {
+	sql := "UPDATE posts title=?,content=?,cid=? WHERE pid=?"
+	return db.Exec(sql, param.Title, param.Content, param.Cid, id)
+}
+
 func DeletePost(id interface{}) (sql.Result, error) {
 	sql := "DELETE FROM posts WHERE pid=?"
 	return db.Exec(sql, id)

@@ -31,6 +31,11 @@ func AddPost(param *models.AddPostParam, authId interface{}) error {
 	return err
 }
 
+func UpdatePost(param *models.AddPostParam, id interface{}) error {
+	_, err := mysql.AddPost(param, id)
+	return err
+}
+
 func DeletePost(id interface{}) error {
 	_, err := mysql.DeletePost(id)
 	return err

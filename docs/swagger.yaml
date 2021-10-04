@@ -1,5 +1,124 @@
-basePath: /
+basePath: /api/v1
 definitions:
+  controllers.CategoryRes:
+    properties:
+      code:
+        type: integer
+      list:
+        items:
+          $ref: '#/definitions/models.Category'
+        type: array
+      msg:
+        type: string
+      pageIndex:
+        type: integer
+      pageSize:
+        type: integer
+      total:
+        type: integer
+    type: object
+  controllers.PostsRes:
+    properties:
+      code:
+        type: integer
+      list:
+        items:
+          $ref: '#/definitions/models.Posts'
+        type: array
+      msg:
+        type: string
+      pageIndex:
+        type: integer
+      pageSize:
+        type: integer
+      total:
+        type: integer
+    type: object
+  controllers.Res:
+    properties:
+      code:
+        type: integer
+      data:
+        type: integer
+      msg:
+        type: string
+    type: object
+  models.AddPostParam:
+    properties:
+      cid:
+        type: integer
+      content:
+        type: string
+      title:
+        type: string
+    required:
+    - cid
+    - content
+    - title
+    type: object
+  models.Category:
+    properties:
+      cid:
+        type: integer
+      cname:
+        type: string
+    type: object
+  models.LoginResponse:
+    properties:
+      createAt:
+        type: string
+      email:
+        type: string
+      gender:
+        type: string
+      token:
+        type: string
+      uid:
+        type: integer
+      updateAt:
+        type: string
+      userName:
+        type: string
+    type: object
+  models.PageListParams:
+    properties:
+      asc:
+        items:
+          type: string
+        type: array
+      condition:
+        additionalProperties: true
+        type: object
+      desc:
+        items:
+          type: string
+        type: array
+      pageIndex:
+        type: integer
+      pageSize:
+        type: integer
+    type: object
+  models.Posts:
+    properties:
+      authId:
+        type: integer
+      authName:
+        type: string
+      cid:
+        type: integer
+      cname:
+        type: string
+      content:
+        type: string
+      createAt:
+        type: string
+      pid:
+        type: integer
+      title:
+        type: string
+      updateAt:
+        type: string
+    type: object
   models.SignupParams:
     properties:
       passwd:
@@ -11,6 +130,21 @@ definitions:
     required:
     - passwd
     - userName
+    type: object
+  models.UserModal:
+    properties:
+      createAt:
+        type: string
+      email:
+        type: string
+      gender:
+        type: string
+      uid:
+        type: integer
+      updateAt:
+        type: string
+      userName:
+        type: string
     type: object
 host: localhost
 info:
@@ -26,6 +160,160 @@ info:
   title: new-bell
   version: "1.0"
 paths:
+  /category:
+    post:
+      consumes:
+      - application/json
+      description: 分类列表
+      parameters:
+      - description: 参数
+        in: body
+        name: object
+        required: true
+        schema:
+          $ref: '#/definitions/models.PageListParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controllers.CategoryRes'
+      summary: 获取分类列表
+      tags:
+      - category
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: 登录
+      parameters:
+      - description: 参数
+        in: body
+        name: object
+        schema:
+          $ref: '#/definitions/models.SignupParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.LoginResponse'
+      summary: 登录接口
+      tags:
+      - user
+  /posts:
+    post:
+      consumes:
+      - application/json
+      description: 添加文章
+      parameters:
+      - description: 参数
+        in: body
+        name: object
+        required: true
+        schema:
+          $ref: '#/definitions/models.AddPostParam'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controllers.Res'
+      summary: 添加文章
+      tags:
+      - posts
+  /posts/:id:
+    delete:
+      consumes:
+      - application/json
+      description: 删除文章
+      parameters:
+      - description: 参数
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controllers.Res'
+      summary: 删除文章
+      tags:
+      - posts
+    get:
+      consumes:
+      - application/json
+      description: 文章详情
+      parameters:
+      - description: 参数
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Posts'
+      summary: 获取文章详情
+      tags:
+      - posts
+    put:
+      consumes:
+      - application/json
+      description: 更新文章
+      parameters:
+      - description: 参数
+        in: body
+        name: object
+        required: true
+        schema:
+          $ref: '#/definitions/models.AddPostParam'
+      - description: pid
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controllers.Res'
+      summary: 更新文章
+      tags:
+      - posts
+  /posts/list:
+    post:
+      consumes:
+      - application/json
+      description: 文章列表
+      parameters:
+      - description: 参数
+        in: body
+        name: object
+        required: true
+        schema:
+          $ref: '#/definitions/models.PageListParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controllers.PostsRes'
+      summary: 获取文章列表
+      tags:
+      - posts
   /signup:
     post:
       consumes:
@@ -45,10 +333,55 @@ paths:
       - application/json
       responses:
         "200":
-          description: OK
+          description: code":200,"data":123,"msg":""}
           schema:
-            type: string
+            $ref: '#/definitions/controllers.Res'
       summary: 注册接口
       tags:
-      - 注册
+      - user
+  /user/:id:
+    get:
+      consumes:
+      - application/json
+      description: 用户信息
+      parameters:
+      - description: Bearer 用户令牌
+        in: header
+        name: Authorization
+        type: string
+      - description: 参数
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserModal'
+      summary: 根据用户id获取详情
+      tags:
+      - user
+  /user/info:
+    get:
+      consumes:
+      - application/json
+      description: 用户信息
+      parameters:
+      - description: Bearer 用户令牌
+        in: header
+        name: Authorization
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserModal'
+      summary: 根据用户token获取详情
+      tags:
+      - user
 swagger: "2.0"

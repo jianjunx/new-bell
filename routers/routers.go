@@ -2,7 +2,7 @@ package routers
 
 import (
 	"new-bell/controllers"
-	_ "new-bell/docs"
+	docs "new-bell/docs"
 	"new-bell/logger"
 	"new-bell/middleware"
 
@@ -17,7 +17,7 @@ func Setup() *gin.Engine {
 	r.Use(logger.GinLogger(), logger.GinRecovery(true))
 
 	// swag path
-	// docs.SwaggerInfo.BasePath = "/api/v1"
+	docs.SwaggerInfo.BasePath = "/api/v1"
 	// 注册路由文档
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	v1 := r.Group("/api/v1")
@@ -40,6 +40,8 @@ func Setup() *gin.Engine {
 		v1.GET("/posts/:id", controllers.GetPostsDetailHandler)
 		// 增加帖子
 		v1.POST("/posts", middleware.Identity(), controllers.AddPostHandler)
+		// 更新帖子
+		v1.PUT("/posts/:id", middleware.Identity(), controllers.UpdatePostHandler)
 		// 删除帖子
 		v1.DELETE("/posts/:id", middleware.Identity(), controllers.DeletePostHandler)
 	}

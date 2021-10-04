@@ -44,3 +44,15 @@ $ go run main.go
 $ cd /path/to/your_project
 $ air -d
 ```
+
+# make
+一键启动
+```bash
+$ make run
+```
+生成swagger文档
+```bash
+$ make swag
+```
+
+
