@@ -13,7 +13,7 @@ WORKDIR /build
 COPY go.mod .
 COPY go.sum .
 RUN go env -w GOPROXY=https://goproxy.cn,direct
-RUN go mod download
+RUN go mod tidy
 
 # 将代码复制到容器中
 COPY . .
