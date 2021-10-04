@@ -13,6 +13,9 @@ run:
 swag:
 	swag init
 
+docker:
+	docker build -o newbell .
+
 gotool:
 	go fmt ./
 	go vet ./
