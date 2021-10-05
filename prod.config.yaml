@@ -1,0 +1,28 @@
+app:
+  name: "new-bell"
+  env: "prod"
+  port: 3010
+  version: "1.0.0"
+  white_list: "/login,/signup,/category,/posts"
+
+mysql:
+  host: "127.0.0.1"
+  port: 33061
+  user: "new_bell"
+  passwd: "pjBSz7HsSZL335NZ"
+  dbname: "new_bell"
+  max_open_conns: 20
+  max_idle_conns: 10
+
+redis:
+  host: "127.0.0.1"
+  port: 6379
+  passwd: "redis123456aB"
+  poolsize: 100
+
+log:
+  level: "debug"
+  filename: "./logs/ginapp.log"
+  maxsize: 1
+  maxbackups: 5
+  maxage: 30

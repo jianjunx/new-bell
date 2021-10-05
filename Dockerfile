@@ -24,7 +24,7 @@ RUN go build -o newbell .
 # 创建一个简单镜像
 FROM scratch
 
-COPY ./config.yaml /config.yaml
+COPY ./prod.config.yaml /config.yaml
 
 # 从builder镜像中把/dist/app 拷贝到当前目录
 COPY --from=builder /build/newbell /
