@@ -4,7 +4,8 @@ FROM golang:alpine AS builder
 ENV GO111MODULE=on \
     GOPROXY=https://goproxy.cn,direct \
     CGO_ENABLED=0 \
-    GOOS=linux
+    GOOS=linux \
+    GOARCH=amd64
 
 # 移动到工作目录：/build
 WORKDIR /build
@@ -12,8 +13,7 @@ WORKDIR /build
 # 复制项目中的 go.mod 和 go.sum文件并下载依赖信息
 COPY go.mod .
 COPY go.sum .
-RUN go env -w GOPROXY=https://goproxy.cn,direct
-RUN go mod tidy
+RUN go mod download
 
 # 将代码复制到容器中
 COPY . .
